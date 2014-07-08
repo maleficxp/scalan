@@ -97,6 +97,12 @@ trait GraphVizExport { self: ScalanExp =>
   // or to add information accessible from the graph
   def emitDepGraph(graph: AstGraph, file: File)(implicit config: GraphVizConfig): Unit =
     emitDepGraph(graph.roots, file)(config)
+  def emitDot(dotText: String, file: File)(implicit config: GraphVizConfig): Unit =
+    if (config.emitGraphs) {
+      FileUtil.withFile(file) {
+        _.println(dotText)
+      }
+    }
 
   private def lambdaDeps(l: Lambda[_, _]): (List[Exp[_]], List[Exp[_]]) = l.y match {
     case Def(l1: Lambda[_, _]) =>

@@ -59,4 +59,23 @@ class FunctionTests extends BaseTests { suite =>
     fun[Int, Int] { x => (x + 1) * 2 } shouldNot matchPattern { case Def(ConstantLambda(_)) => }
   }
 
+  test("Alpha-equivalence works") {
+    val ctx = new TestContext(suite, "alphaEquivalence") {
+      lazy val idInt1 = fun[Int, Int] { x => x }
+      lazy val idInt2 = fun[Int, Int] { x => x }
+      lazy val idDouble = fun[Double, Double] { x => x }
+      lazy val f1_1 = fun { x: Rep[Int] => fun { y: Rep[Int] => x } }
+      lazy val f1_2 = fun { y: Rep[Int] => fun { x: Rep[Int] => y } }
+      lazy val f3 = fun { y: Rep[Int] => fun { x: Rep[Int] => x } }
+      lazy val f2_1 = fun { x: Rep[Int] => x + 1 }
+      lazy val f2_2 = fun { x: Rep[Int] => x + 1 }
+    }
+    import ctx._
+
+//    idInt1.alphaEqual(idInt2) should be(true)
+//    f2_1.alphaEqual(f2_2) should be(true)
+//    f1_1.alphaEqual(f1_2) should be(true)
+//    idInt1.alphaEqual(f2_1) should be(false)
+    f1_1.alphaEqual(f3) should be(false)
+  }
 }

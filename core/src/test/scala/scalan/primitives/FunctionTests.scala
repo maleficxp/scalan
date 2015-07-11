@@ -72,10 +72,10 @@ class FunctionTests extends BaseTests { suite =>
     }
     import ctx._
 
-//    idInt1.alphaEqual(idInt2) should be(true)
-//    f2_1.alphaEqual(f2_2) should be(true)
-//    f1_1.alphaEqual(f1_2) should be(true)
-//    idInt1.alphaEqual(f2_1) should be(false)
+    idInt1.alphaEqual(idInt2) should be(true)
+    f2_1.alphaEqual(f2_2) should be(true)
+    f1_1.alphaEqual(f1_2) should be(true)
+    idInt1.alphaEqual(f2_1) should be(false)
     f1_1.alphaEqual(f3) should be(false)
   }
 }

@@ -73,7 +73,7 @@ trait FunctionsExp extends Functions with BaseExp with ProgramGraphs { self: Sca
       other match {
         case that: Lambda[_,_] =>
           (that canEqual this) &&
-            this.x == that.x && this.y == that.y
+            alphaEqual(this.y, that.y, Map(this.x -> that.x))
         case _ => false
       }
     override def toString = s"Lambda(${if (f.isDefined) "f is Some" else "f is None"}, $x => $y})"
